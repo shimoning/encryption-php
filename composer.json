@@ -1,0 +1,34 @@
+{
+  "name": "shimoning/encryption",
+  "description": "Library about encrypt",
+  "keywords": [
+    "encryption",
+    "encrypt",
+    "decrypt"
+  ],
+  "type": "library",
+  "version": "0.1.0",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2 | ^3",
+    "phpunit/phpunit": "^10.5",
+    "phpstan/phpstan": "^2.1",
+    "phpmd/phpmd": "^2.15"
+  },
+  "autoload": {
+    "psr-4": {
+      "Shimoning\\Encryption\\": "src"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html='.coverage' --coverage-clover='clover.xml'",
+    "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
+    "cs:fix": "php-cs-fixer fix --verbose",
+    "md": "phpmd src text phpmd.xml",
+    "stan": "phpstan analyse"
+  }
+}

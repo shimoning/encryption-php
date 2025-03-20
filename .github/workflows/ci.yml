@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "**.php"
+      - "phpunit.xml"
+  pull_request:
+    paths:
+      - "**.php"
+      - "phpunit.xml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install composer and dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.1"
+
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v4
+        env:
+          XDEBUG_MODE: coverage
+        with:
+          php_extensions: "xdebug"
+          coverage_clover: "./clover.xml"
+          testsuite: "All"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: shimoning/encryption-php
+          files: ./clover.xml
+          verbose: true
